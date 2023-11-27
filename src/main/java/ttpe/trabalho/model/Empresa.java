@@ -1,7 +1,7 @@
 package ttpe.trabalho.model;
 
 public class Empresa {
-	private String id;
+	private int id;
 	
 	private String cnpj;
 	
@@ -9,10 +9,18 @@ public class Empresa {
 	
 	private String endereco;
 	
-	public String getId() {
+	
+	public Empresa(int id, String cnpj, String nome, String endereco) {
+		super();
+		this.id = id;
+		this.cnpj = cnpj;
+		this.nome = nome;
+		this.endereco = endereco;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getCnpj() {

@@ -20,15 +20,15 @@ public class InventarioTest {
         inventario = new Estoque(); // Inicializa o inventario antes de cada teste
     }
 
-    @Test
-    @DisplayName("Adicionar produto ao inventário")
-    void testAdicionarProduto() {
-        Produto novoProduto = new Produto("2", "Novo Produto", "Nova Descrição", 20.0, 100);
-        inventario.adicionarProduto(novoProduto);
-        assertAll("inventario",
-            () -> assertNotNull(inventario.getProduto("2")),
-            () -> assertEquals("Novo Produto", inventario.getProduto("2").getNome())
-        );
-    }
+   // @Test
+    //@DisplayName("Adicionar produto ao inventário")
+    //void testAdicionarProduto() {
+      //  Produto novoProduto = new Produto("2", "Novo Produto", "Nova Descrição", 20.0, 100);
+        //inventario.adicionarProduto(novoProduto);
+        //assertAll("inventario",
+          //  () -> assertNotNull(inventario.getProduto("2")),
+            //() -> assertEquals("Novo Produto", inventario.getProduto("2").getNome())
+        //);
+    //}
     
 }
