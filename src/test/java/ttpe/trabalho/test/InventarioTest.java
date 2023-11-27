@@ -8,16 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import ttpe.trabalho.model.Inventario;
+import ttpe.trabalho.model.Estoque;
 import ttpe.trabalho.model.Produto;
 
 public class InventarioTest {
 
-    private Inventario inventario;
+    private Estoque inventario;
 
     @BeforeEach
     public void setUp() {
-        inventario = new Inventario(); // Inicializa o inventario antes de cada teste
+        inventario = new Estoque(); // Inicializa o inventario antes de cada teste
     }
 
     @Test

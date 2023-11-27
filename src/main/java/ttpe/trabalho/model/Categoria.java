@@ -3,7 +3,9 @@ package ttpe.trabalho.model;
 public class Categoria {
 
 	private int id;
+	
 	private String descricao;
+	
 	public int getId() {
 		return id;
 	}

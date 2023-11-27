@@ -1,14 +1,15 @@
 package ttpe.trabalho.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Inventario {
-    private Map<String, Produto> produtos;
-
-    public Inventario() {
-        produtos = new HashMap<>();
-    }
+public class Estoque {
+   
+	private Map<String, Produto> produtos =  new HashMap<>();
+    
+    private List<Transacao> transacoes = new ArrayList<Transacao>();
 
     public void adicionarProduto(Produto produto) {
         produtos.put(produto.getId(), produto);
