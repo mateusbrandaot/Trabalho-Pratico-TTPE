@@ -14,7 +14,7 @@ public class Transacao {
 	    
 	    
 		public Transacao(Produto produto, int quantidade, Date dataTransacao, String tipoTransacao) {
-			super();
+			
 			this.produto = produto;
 			this.quantidade = quantidade;
 			this.dataTransacao = dataTransacao;

@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import ttpe.trabalho.exception.ValorInvalidoException;
 
 public class Estoque {
 
@@ -19,15 +22,19 @@ public class Estoque {
     public Produto getProduto(String produtoId) {
         return produtos.get(produtoId);
     }
-
+   
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
     
     public void registrarTransacao(String idProduto, int quantidade, String tipoTransacao,  Empresa empresaOrigem, Empresa empresaDestino) throws Exception {
     	Produto produto = produtos.get(idProduto);  
-    	Transacao transacao = new Transacao(produto, quantidade, new Date(), tipoTransacao);
-        transacoes.add(transacao);
+    	Date now = new Date();  
+    	Transacao transacao = new Transacao(produto, quantidade, now, tipoTransacao);
+        if(transacao.getQuantidade() < 0 ) {
+        	 throw new ValorInvalidoException("quantidade transacao inválida.");
+        }
+    	transacoes.add(transacao);
        
         switch (tipoTransacao) {
         case "Venda":
@@ -47,8 +54,7 @@ public class Estoque {
         	System.out.println("Tipo de transação não reconhecido: " + tipoTransacao);
             break;
         }
-     produto.alertaEstoque();   
-       
+     produto.alertaEstoque(now);   
     }    
    
 
@@ -88,6 +94,12 @@ public class Estoque {
 
     }
 
+    
+    public int produtoEmEstoque (String idproduto) {
+    	Produto produto = produtos.get(idproduto);
+    	int qtd = produto.getQuantidadeEmEstoque();
+    	return qtd;
+    }
     public Double calculaValorEmEstoqueProduto (String idproduto) {
     	Produto produto = produtos.get(idproduto);
     	Double valor = produto.getQuantidadeEmEstoque() * produto.getPreco();
@@ -98,6 +110,28 @@ public class Estoque {
     	Produto produto = produtos.get(idproduto);
     	int valor = produto.getQuantidadeEmEstoque();
     	return valor;
+    }
+    
+    public Produto getProdutoNome(String nome) {
+    	Optional<Produto> produtoEncontrado = produtos.values().stream()
+                .filter(p -> p.getNome().equals(nome))
+                .findFirst();
+
+        if(produtoEncontrado.isPresent()) {
+        	return produtoEncontrado.get();
+        } else return null;
+
+    }
+    
+    public Produto getProdutoCodigoBarra(String codigoBarra) {
+    	Optional<Produto> produtoEncontrado = produtos.values().stream()
+                .filter(p -> p.getCodigoBarra().equals(codigoBarra))
+                .findFirst();
+
+        if(produtoEncontrado.isPresent()) {
+        	return produtoEncontrado.get();
+        } else return null;
+
     }
 }
 

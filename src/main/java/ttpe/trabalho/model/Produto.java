@@ -1,10 +1,10 @@
 package ttpe.trabalho.model;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import ttpe.trabalho.exception.DescricaoEmBrancoException;
+import ttpe.trabalho.exception.EstoqueNegativoException;
 import ttpe.trabalho.exception.ValorInvalidoException;
 
 public class Produto {
@@ -163,10 +163,22 @@ public class Produto {
         }
     }
     
-    public void alertaEstoque() {
+    public void alertaEstoque(Date data) throws EstoqueNegativoException {
     	if(quantidadeEmEstoque < QtdMinimaEstoque) {
-    		System.out.print("estoque baixo");
+    		System.out.printf("estoque baixo produto %s total %s fornecedor %s ", this.id, this.quantidadeEmEstoque, this.fornecedor.getNome());
     	}
+    	if(isProximoVencimento(data)) {
+    		System.out.print("produtos próximos de vencer");
+    		
+    	Double valorDesconto = this.preco * 0.2;
+    	Double valorFinal = this.preco - valorDesconto;
+    	this.preco = valorFinal;
+    	}
+		if(this.quantidadeEmEstoque < 0 ) {
+			this.quantidadeEmEstoque = 0;
+			throw new EstoqueNegativoException("Estoque negativo");
+		}
+	    	
     }
     
     public  boolean isProximoVencimento(Date date1) {
