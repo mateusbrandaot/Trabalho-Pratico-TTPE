@@ -136,24 +136,30 @@ public class Produto {
 		this.fornecedor = fornecedor;
 	}
 
-	
-
 	public int getQtdMinimaEstoque() {
 		return QtdMinimaEstoque;
 	}
-
+	
 
 	public void setQtdMinimaEstoque(int qtdMinimaEstoque) {
 		QtdMinimaEstoque = qtdMinimaEstoque;
 	}
+	
+
+	public Date getValidade() {
+		return validade;
+	}
+	
+
+	public void setValidade(Date validade) {
+		this.validade = validade;
+	}
 
 
-	// Método para adicionar estoque
     public void adicionarEstoque(int quantidade) {
         this.quantidadeEmEstoque += quantidade;
     }
 
-    // Método para remover estoque
     public boolean removerEstoque(int quantidade) {
         if (quantidade <= quantidadeEmEstoque) {
             quantidadeEmEstoque -= quantidade;
@@ -163,30 +169,4 @@ public class Produto {
         }
     }
     
-    public void alertaEstoque(Date data) throws EstoqueNegativoException {
-    	if(quantidadeEmEstoque < QtdMinimaEstoque) {
-    		System.out.printf("estoque baixo produto %s total %s fornecedor %s ", this.id, this.quantidadeEmEstoque, this.fornecedor.getNome());
-    	}
-    	if(isProximoVencimento(data)) {
-    		System.out.print("produtos próximos de vencer");
-    		
-    	Double valorDesconto = this.preco * 0.2;
-    	Double valorFinal = this.preco - valorDesconto;
-    	this.preco = valorFinal;
-    	}
-		if(this.quantidadeEmEstoque < 0 ) {
-			this.quantidadeEmEstoque = 0;
-			throw new EstoqueNegativoException("Estoque negativo");
-		}
-	    	
-    }
-    
-    public  boolean isProximoVencimento(Date date1) {
-    	// Calcula a diferença em milissegundos entre as duas datas
-        long diffInMillis = Math.abs(date1.getTime() - this.validade.getTime());
-        // Converte a diferença em milissegundos para dias
-        long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-        // Retorna true se a diferença for exatamente 10 dias
-        return diffInDays == 10;
-    }
 }

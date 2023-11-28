@@ -35,8 +35,8 @@ public class InventarioTest {
     	Produto novoProduto = new Produto("1", "Novo Produto", "Descrição", "123456", 10.0, 5, empresa, fornecedor, 30, now);
     	estoque.adicionarProduto(novoProduto);
         assertAll("inventario",
-            () -> assertNotNull(estoque.getProduto("1")),
-            () -> assertEquals("Novo Produto", estoque.getProduto("1").getNome())
+            () -> assertNotNull(estoque.getProdutoPorId("1")),
+            () -> assertEquals("Novo Produto", estoque.getProdutoPorId("1").getNome())
         );
     }
     
