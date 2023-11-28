@@ -1,5 +1,9 @@
 package ttpe.trabalho.model;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import ttpe.trabalho.exception.DescricaoEmBrancoException;
 import ttpe.trabalho.exception.ValorInvalidoException;
 
@@ -23,10 +27,12 @@ public class Produto {
 	
 	private int QtdMinimaEstoque;
 	
+	private Date validade ;
+	
   
 	public Produto(String id, String nome, String descricao, String codigoBarra, 
 	             double preco, int quantidadeEmEstoque, 
-	             Empresa empresaDetentora, Fornecedor fornecedor, int QtdMinimaEstoque) 
+	             Empresa empresaDetentora, Fornecedor fornecedor, int QtdMinimaEstoque, Date validade) 
 	             throws DescricaoEmBrancoException, ValorInvalidoException {
 	  if (nome == null || nome.trim().isEmpty() ||
 	      codigoBarra == null || codigoBarra.trim().isEmpty() ||
@@ -47,6 +53,7 @@ public class Produto {
 	  this.empresaDetentora = empresaDetentora;
 	  this.fornecedor = fornecedor;
 	  this.QtdMinimaEstoque = QtdMinimaEstoque;
+	  this.validade = validade;
 	}
     
 	
@@ -160,5 +167,14 @@ public class Produto {
     	if(quantidadeEmEstoque < QtdMinimaEstoque) {
     		System.out.print("estoque baixo");
     	}
+    }
+    
+    public  boolean isProximoVencimento(Date date1) {
+    	// Calcula a diferença em milissegundos entre as duas datas
+        long diffInMillis = Math.abs(date1.getTime() - this.validade.getTime());
+        // Converte a diferença em milissegundos para dias
+        long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        // Retorna true se a diferença for exatamente 10 dias
+        return diffInDays == 10;
     }
 }

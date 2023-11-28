@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,8 @@ public class InventarioTest {
     void testAdicionarProduto() throws DescricaoEmBrancoException, ValorInvalidoException {
     	Empresa empresa = new Empresa(1, "35737451000190", "MATRIZ", "rua portugal");
     	Fornecedor fornecedor = new Fornecedor(1, "fornecedor test", "6198460585", "endereço teste");
-    	Produto novoProduto = new Produto("1", "Novo Produto", "Descrição", "123456", 10.0, 5, empresa, fornecedor,30);
+    	Date now = new Date();
+    	Produto novoProduto = new Produto("1", "Novo Produto", "Descrição", "123456", 10.0, 5, empresa, fornecedor, 30, now);
     	estoque.adicionarProduto(novoProduto);
         assertAll("inventario",
             () -> assertNotNull(estoque.getProduto("1")),

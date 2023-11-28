@@ -94,5 +94,10 @@ public class Estoque {
     	return valor;
     }
    
+    public int quantidadeProdutoEstoque (String idproduto) {
+    	Produto produto = produtos.get(idproduto);
+    	int valor = produto.getQuantidadeEmEstoque();
+    	return valor;
+    }
 }
 
