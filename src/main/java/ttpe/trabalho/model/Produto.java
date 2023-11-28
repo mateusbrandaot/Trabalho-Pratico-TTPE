@@ -21,10 +21,12 @@ public class Produto {
 
 	private Fornecedor fornecedor;
 	
+	private int QtdMinimaEstoque;
+	
   
 	public Produto(String id, String nome, String descricao, String codigoBarra, 
 	             double preco, int quantidadeEmEstoque, 
-	             Empresa empresaDetentora, Fornecedor fornecedor) 
+	             Empresa empresaDetentora, Fornecedor fornecedor, int QtdMinimaEstoque) 
 	             throws DescricaoEmBrancoException, ValorInvalidoException {
 	  if (nome == null || nome.trim().isEmpty() ||
 	      codigoBarra == null || codigoBarra.trim().isEmpty() ||
@@ -44,34 +46,102 @@ public class Produto {
 	  this.quantidadeEmEstoque = quantidadeEmEstoque;
 	  this.empresaDetentora = empresaDetentora;
 	  this.fornecedor = fornecedor;
-}
-
-	// Getters e setters
+	  this.QtdMinimaEstoque = QtdMinimaEstoque;
+	}
+    
+	
     public String getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public double getPreco() {
-        return preco;
-    }
 
-    public int getQuantidadeEmEstoque() {
-        return quantidadeEmEstoque;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setQuantidadeEmEstoque(int quantidadeEmEstoque) {
-        this.quantidadeEmEstoque = quantidadeEmEstoque;
-    }
 
-    // Método para adicionar estoque
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+	public String getCodigoBarra() {
+		return codigoBarra;
+	}
+
+
+	public void setCodigoBarra(String codigoBarra) {
+		this.codigoBarra = codigoBarra;
+	}
+
+
+	public double getPreco() {
+		return preco;
+	}
+
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+
+	public int getQuantidadeEmEstoque() {
+		return quantidadeEmEstoque;
+	}
+
+
+	public void setQuantidadeEmEstoque(int quantidadeEmEstoque) {
+		this.quantidadeEmEstoque = quantidadeEmEstoque;
+	}
+
+
+	public Empresa getEmpresaDetentora() {
+		return empresaDetentora;
+	}
+
+
+	public void setEmpresaDetentora(Empresa empresaDetentora) {
+		this.empresaDetentora = empresaDetentora;
+	}
+
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	
+
+	public int getQtdMinimaEstoque() {
+		return QtdMinimaEstoque;
+	}
+
+
+	public void setQtdMinimaEstoque(int qtdMinimaEstoque) {
+		QtdMinimaEstoque = qtdMinimaEstoque;
+	}
+
+
+	// Método para adicionar estoque
     public void adicionarEstoque(int quantidade) {
         this.quantidadeEmEstoque += quantidade;
     }
@@ -84,5 +154,11 @@ public class Produto {
         } else {
             return false;
         }
+    }
+    
+    public void alertaEstoque() {
+    	if(quantidadeEmEstoque < QtdMinimaEstoque) {
+    		System.out.print("estoque baixo");
+    	}
     }
 }

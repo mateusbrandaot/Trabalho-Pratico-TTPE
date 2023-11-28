@@ -8,27 +8,33 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import ttpe.trabalho.exception.DescricaoEmBrancoException;
+import ttpe.trabalho.exception.ValorInvalidoException;
+import ttpe.trabalho.model.Empresa;
 import ttpe.trabalho.model.Estoque;
+import ttpe.trabalho.model.Fornecedor;
 import ttpe.trabalho.model.Produto;
 
 public class InventarioTest {
 
-    private Estoque inventario;
+    private Estoque estoque;
 
     @BeforeEach
     public void setUp() {
-        inventario = new Estoque(); // Inicializa o inventario antes de cada teste
+    	estoque = new Estoque(); //inicializa o inventario para cada teste
     }
 
-   // @Test
-    //@DisplayName("Adicionar produto ao inventário")
-    //void testAdicionarProduto() {
-      //  Produto novoProduto = new Produto("2", "Novo Produto", "Nova Descrição", 20.0, 100);
-        //inventario.adicionarProduto(novoProduto);
-        //assertAll("inventario",
-          //  () -> assertNotNull(inventario.getProduto("2")),
-            //() -> assertEquals("Novo Produto", inventario.getProduto("2").getNome())
-        //);
-    //}
+    @Test
+    @DisplayName("Adicionar produto ao inventário")
+    void testAdicionarProduto() throws DescricaoEmBrancoException, ValorInvalidoException {
+    	Empresa empresa = new Empresa(1, "35737451000190", "MATRIZ", "rua portugal");
+    	Fornecedor fornecedor = new Fornecedor(1, "fornecedor test", "6198460585", "endereço teste");
+    	Produto novoProduto = new Produto("1", "Novo Produto", "Descrição", "123456", 10.0, 5, empresa, fornecedor,30);
+    	estoque.adicionarProduto(novoProduto);
+        assertAll("inventario",
+            () -> assertNotNull(estoque.getProduto("1")),
+            () -> assertEquals("Novo Produto", estoque.getProduto("1").getNome())
+        );
+    }
     
 }

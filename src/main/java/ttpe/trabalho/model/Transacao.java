@@ -11,6 +11,15 @@ public class Transacao {
 	    private Date dataTransacao;
 	    
 	    private String tipoTransacao; // Ex: "Venda", "Recebimento", "Devolução", etc.
+	    
+	    
+		public Transacao(Produto produto, int quantidade, Date dataTransacao, String tipoTransacao) {
+			super();
+			this.produto = produto;
+			this.quantidade = quantidade;
+			this.dataTransacao = dataTransacao;
+			this.tipoTransacao = tipoTransacao;
+		}
 
 		public Produto getProduto() {
 			return produto;
