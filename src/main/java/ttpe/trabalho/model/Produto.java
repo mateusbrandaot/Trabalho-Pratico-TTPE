@@ -1,10 +1,8 @@
 package ttpe.trabalho.model;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import ttpe.trabalho.exception.DescricaoEmBrancoException;
-import ttpe.trabalho.exception.EstoqueNegativoException;
 import ttpe.trabalho.exception.ValorInvalidoException;
 
 public class Produto {

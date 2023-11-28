@@ -4,8 +4,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import ttpe.trabalho.exception.DescricaoEmBrancoException;
 import ttpe.trabalho.exception.ValorInvalidoException;
@@ -44,5 +50,39 @@ public class ProdutoTest {
             fail("Não deveria lançar exceção para dados válidos.");
         }
     }
+    
+    @ParameterizedTest
+    @ValueSource(ints = {1, 5, 10}) 
+    void testAdicionarEstoque(int quantidade) throws DescricaoEmBrancoException, ValorInvalidoException {
+    	Date now = new Date();
+        Produto produto = new Produto("1", "Produto Teste", "Descrição", "123456", 10.50, quantidade, null, null, 30, now);
+        int estoqueInicial = produto.getQuantidadeEmEstoque();
+        
+        produto.adicionarEstoque(quantidade);
+
+        Assertions.assertEquals(estoqueInicial + quantidade, produto.getQuantidadeEmEstoque());
+    }
+    
+ 
+    private static Stream<Arguments> removerEstoqueArguments() {
+        return Stream.of(
+            Arguments.of(5, 3, true),  
+            Arguments.of(5, 5, true),
+            Arguments.of(5, 6, false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("removerEstoqueArguments")
+    void testRemoverEstoque(int estoqueInicial, int quantidadeARemover, boolean resultadoEsperado) throws Exception {
+    	Date now = new Date();
+    	Produto produto = new Produto("1", "Produto Teste", "Descrição", "123456", 10.50, estoqueInicial, null, null, 30, now);
+
+        boolean resultado = produto.removerEstoque(quantidadeARemover);
+
+        Assertions.assertEquals(resultadoEsperado, resultado);
+    }
 }
+    
+
 
