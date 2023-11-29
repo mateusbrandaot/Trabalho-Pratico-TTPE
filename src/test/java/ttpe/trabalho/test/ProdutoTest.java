@@ -51,10 +51,7 @@ public class ProdutoTest {
     @Test
     public void deveCadastrarProdutoValido() {
         try {
-        	Empresa empresa = new Empresa(1, "35737451000190", "MATRIZ", "rua portugal");
-        	Fornecedor fornecedor = new Fornecedor(1, "fornecedor test", "6198460585", "endereço teste");
-        	Date now = new Date();
-        	Produto produto = new Produto("1", "Produto Teste", "Descrição", "123456", 10.0, 5, empresa, fornecedor, 30, now);
+        	Produto produto = new Produto(id, nomePadrao, descricaoPadrao, codigoBarraPadrao, precoPadrao, qtdAtualPadrao, empresaPadrao, fornecedorPadrao, qtdMinimaPadrao, dataAtualPadrao);
             assertNotNull(produto);
         } catch (DescricaoEmBrancoException | ValorInvalidoException e) {
             fail("Não deveria lançar exceção para dados válidos.");
@@ -65,7 +62,7 @@ public class ProdutoTest {
     @ValueSource(ints = {1, 5, 10}) 
     void testAdicionarEstoque(int quantidade) throws DescricaoEmBrancoException, ValorInvalidoException {
     	Date now = new Date();
-        Produto produto = new Produto("1", "Produto Teste", "Descrição", "123456", 10.50, quantidade, null, null, 30, now);
+        Produto produto = new Produto(id, nomePadrao, descricaoPadrao, codigoBarraPadrao, precoPadrao, quantidade, empresaPadrao, fornecedorPadrao, qtdMinimaPadrao, dataAtualPadrao);
         int estoqueInicial = produto.getQuantidadeEmEstoque();
         
         produto.adicionarEstoque(quantidade);
@@ -85,11 +82,8 @@ public class ProdutoTest {
     @ParameterizedTest
     @MethodSource("removerEstoqueArguments")
     void testRemoverEstoque(int estoqueInicial, int quantidadeARemover, boolean resultadoEsperado) throws Exception {
-    	Date now = new Date();
-    	Produto produto = new Produto("1", "Produto Teste", "Descrição", "123456", 10.50, estoqueInicial, null, null, 30, now);
-
+    	Produto produto = new Produto(id, nomePadrao, descricaoPadrao, codigoBarraPadrao, precoPadrao, estoqueInicial, empresaPadrao, fornecedorPadrao, qtdMinimaPadrao, dataAtualPadrao);
         boolean resultado = produto.removerEstoque(quantidadeARemover);
-
         Assertions.assertEquals(resultadoEsperado, resultado);
     }
 }
