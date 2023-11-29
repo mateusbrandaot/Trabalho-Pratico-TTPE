@@ -17,7 +17,7 @@ class EstoqueTest {
     void setUp() {
         estoque = new Estoque();
         // Adicionar alguns produtos ao estoque para os testes
-        estoque.adicionarProduto(new Produto(/* parâmetros do construtor */)); // Exemplo
+       // estoque.adicionarProduto(new Produto(/* parâmetros do construtor */)); // Exemplo
         // Continue adicionando conforme necessário
     }
 
